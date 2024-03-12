@@ -1,3 +1,7 @@
+'''
+백준 14051 퇴사
+'''
+
 def dfs(k, pay):
     global ans
     if k >= N:
