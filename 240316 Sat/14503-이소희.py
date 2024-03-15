@@ -1,5 +1,7 @@
 '''
 백준 14503 로봇 청소기
+메모리 31120kb
+시간 40ms
 '''
 N, M = map(int, input().split())
 r, c, d = map(int, input().split())
