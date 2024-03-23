@@ -5,7 +5,7 @@
 
 def check(x, y, d1, d2):
     # 선거구 경계 설정
-    graph = [[0] * N+1 for _ in range(N+1)]
+    graph = [[0] * (N+1) for _ in range(N+1)]
 
 
     for i in range(d1 + 1):
@@ -14,14 +14,15 @@ def check(x, y, d1, d2):
     for i in range(d2 + 1):
         graph[x + i][y + i] = 5
         graph[x + d1 + i][y - d1 + i] = 5
-    print(*graph,sep = '\n')
 
     # 1번 ~ 4번 선거구 설정
     districts = [0] * 5
     for r in range(1,N+1):
         for c in range(1,N+1):
+            print(r, c)
             if graph[r][c] == 5:
                 districts[4] += population[r][c]
+                print(r,c)
             elif r < x + d1 and c <= y and graph[r][c] != 5:
                 districts[0] += population[r][c]
             elif r <= x + d2 and y < c <= N - 1 and graph[r][c] != 5:
@@ -36,11 +37,13 @@ def check(x, y, d1, d2):
 
 
 N = int(input())
-population = [0] + [list(map(int, input().split())) for _ in range(N)]
-
+population = [[0]*N] + [list(map(int, input().split())) for _ in range(N)]
 ans = int(1e9)
-for x in range(1,N):
-    for y in range(1,N):
+
+
+# 모든 경우의 수 탐색
+for x in range(1,N+1):
+    for y in range(1,N+1):
         for d1 in range(1, N):
             for d2 in range(1, N):
                 if x + d1 + d2 <= N and 1 <= y - d1 and y + d2 <= N:
