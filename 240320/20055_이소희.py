@@ -7,9 +7,6 @@ import sys
 input = sys.stdin.readline
 from collections import deque
 
-def rotate(q):
-    q.append(q.popleft())
-
 N, K = map(int, input().split())
 # 각 칸마다 내구성
 A = deque(list(map(int, input().split())))
@@ -21,19 +18,21 @@ while True:
     A.rotate(1)
     robot.rotate(1)
     robot[N-1] = 0
+    
     # (2) 가장 앞 로봇부터 회전하는 방향으로 한 칸씩 이동
     if robot:
         for i in range(N-2, -1,-1):
             if robot[i] == 1 and robot[i+1] == 0 and A[i+1] >= 1:
                 robot[i+1] = 1
                 robot[i] = 0
-                # > 왜 이렇게는 안 됨? robot.rotate(1)
                 A[i+1] -= 1
         robot[N-1] = 0
+        
     # (3) 조건에 맞춰서 1번 칸에 로봇을 올려
     if robot[0] == 0 and A[0] >= 1:
         robot[0] = 1
         A[0] -= 1
+        
     # (4) 
     cnt = 0
     for each in A:
