@@ -36,7 +36,6 @@ def bfs(si, sj):
     return result
 
 
-# main
 T = int(input())
 for t in range(T):
     N, M, R, C, L = map(int, input().split())
