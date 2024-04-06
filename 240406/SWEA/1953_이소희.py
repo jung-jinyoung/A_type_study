@@ -1,3 +1,7 @@
+'''
+메모리 71540 KB, 실행시간 205 ms, 코드길이 1186
+'''
+
 from collections import deque
 # 상 (-1,0) 하 (1,0) 좌 (0,-1) 우 (0,1)
 poss = {
