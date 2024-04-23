@@ -6,14 +6,6 @@
 
 Q. 최대한 많은 양의 포도주를 마실 수 있을 때의 마신 포도주의 양을 구하시오.
 
-접근 방법 1 : DFS + 백트래킹 + 완전 탐색
-1. 모든 조합의 경우를 구하기
-    :그 다음 인덱스부터 모든 와인의 양을 합했을 때 asn 보다 작으면 return
-2. 기저 조건 : i == N => ans 업데이트
-
--> 최대 포도잔 수 10000개 => 백트래킹 불가
-
-
 접근 방법 2 : DP
 1. 세 개를 묶어서 보기 :
     현재 인덱스 i에서 i-1를 함께 선택했을 경우와 i-2를 선택했을 경우를 나누어서 보기
@@ -36,25 +28,28 @@ output =>301
 
 
 2. 안 마시고 넘어갈 경우 생각
-    2-1 i를 선택하지 않았을 경우
+    2-1 i를 선택하지 않았을 경우 : dp[i-1]를 보기
+
+
+pypy3 : 140ms / 110884 KB
+python3 : 444ms / 31120KB
 """
 
 N = int(input())
-wines =[0] +  [int(input()) for _ in range(N)] #인덱스를 위한 더미 생성
+wines = [0] + [int(input()) for _ in range(N)]  # 인덱스를 위한 더미 생성
 
-if N<=2:
+if N <= 2:
     if N == 1:
         print(wines[N])
     elif N == 2:
-        print(wines[1]+wines[2])
+        print(wines[1] + wines[2])
 else:
-    dp = [0]*(N+1) # dp 초기화, 더미 생성
+    dp = [0] * (N + 1)  # dp 초기화, 더미 생성
     dp[1] = wines[1]
-    dp[2] = wines[1]+wines[2]
-    for i in range(3,N+1):
-        tmp1 = dp[i-3] + wines[i-1]+ wines[i]
-        tmp2 = dp[i-2] + wines[i]
-        dp[i] = max(tmp1,tmp2)
+    dp[2] = wines[1] + wines[2]
+    for i in range(3, N + 1):
+        tmp1 = dp[i - 3] + wines[i - 1] + wines[i]  # 해당 와인과 이전 와인을 마시는 경우
+        tmp2 = dp[i - 2] + wines[i]  # 해당 와인만 마시는 경우
+        tmp3 = dp[i - 1]  # 해당 와인을 마시지 않는 경우
+        dp[i] = max(tmp1, tmp2, tmp3)  # 세 경우 중 최대값 선택
     print(max(dp))  # 마실 수 있는 양들 중에 가장 큰 값을 출력
-
-
