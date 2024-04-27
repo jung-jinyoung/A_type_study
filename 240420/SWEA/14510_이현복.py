@@ -22,12 +22,12 @@ for tc in range(T):
         if not arr:
             break
         day+=1
-        if day%2==0:
+        if day%2==0:                                # 짝수인 날
             if arr[-1]+2==h_lim:                    # 가장 큰 나무 +2 했을 때 최대 높이면
                 arr[-1] += 2                        # 가장 큰 나무 성장 종료
             elif arr[0]+2<=h_lim:                   # 아니면
                 arr[0] += 2                         # 가장 작은 나무에 +2
-        else:
+        else:                                       # 홀수인 날
             if arr[-1]+1==h_lim:                    # 가장 큰 나무 +2 했을 때 최대 높이면
                 arr[-1] += 1                        # 가장 큰 나무 성장 종료
             elif len(arr)<3 and arr[0]+2==h_lim:    # 남은 나무가 2개 이하 and 가장 작은거 +2가 최대 높이
