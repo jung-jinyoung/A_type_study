@@ -11,7 +11,7 @@
 => 2-2. 모든 4개의 좌표가 드래곤 커브 좌표이면 완료 리스트에 조회 후 저장
 2-1~2-2 반복
 
-
+시간: 56ms / 메모리: 31120KB
 
 """
 
@@ -22,9 +22,8 @@ op = [1,2,3,0] # 90도 회전 후 di,dj 인덱스
 graph = [[0]* 101 for _ in range(101) ] # 좌표 저장이 아닌, 그래프 표시로 변경
 
 N = int(input())
-
 for _ in range(N):
-    x,y,d,g = map(int,input().split()) # (x,y) 시작점에서 d방향으로 이동 후, 총 g세대의 드래곤 커브를 가진다.
+    y,x,d,g = map(int, input().split()) # (x,y) 시작점에서 d방향으로 이동 후, 총 g세대의 드래곤 커브를 가진다.
 
     directions = [] # 이동해야할 방향 저장 리스트
     graph[x][y] = 1
@@ -34,18 +33,16 @@ for _ in range(N):
     # 드래곤 커브 생성을 위한 방향 리스트 저장
     for _ in range(g):
         # 현재 세대 드래곤 커브 생성
-
         for i in range(len(directions)-1, -1, -1):
-            directions.append(op[directions[i]])
+            directions.append((directions[i]+1) % 4)
 
     # 드래곤 커브 만들기
     for i in range(len(directions)):
-        x += di[directions[i]]
-        y += dj[directions[i]]
+        nx =x + di[directions[i]]
+        ny =y + dj[directions[i]]
 
-        if x < 0 or x >= 101 or y < 0 or y >= 101: #범위가 벗어난다면
-            continue
-        graph[x][y] = 1
+        graph[nx][ny] = 1
+        x,y= nx,ny
 
 answer = 0
 for i in range(100):
