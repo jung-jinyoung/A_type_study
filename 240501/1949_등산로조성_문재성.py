@@ -48,7 +48,7 @@ def hiking(peak, array, visited, level, is_digged):
                             array[nr][nc] = origin - k
                             visited[nr][nc] = 1
                             # 다음 위치로 이동하며 등산로 길이를 1 증가시키고, 함수를 재귀 호출
-                            hiking((nr, nc), array, visited, level + 1, 1)
+                            hiking((nr, nc), array, visited, level + 1, True)
                             # 등산로 찾기가 끝나면 현재 위치의 높이와 방문 여부를 원래대로 복구
                             array[nr][nc] = origin
                             visited[nr][nc] = 0
