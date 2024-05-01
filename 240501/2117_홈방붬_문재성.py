@@ -12,8 +12,6 @@
 손해를 보지 않으면서 홈방범 서비스를 가장 많은 집들에 제공하는 서비스 영역을 찾고
 그때, 서비스를 제공받는 집들의 수를 출력!
 
-
-
 '''
 import sys
 sys.stdin = open('input.txt', 'r')
@@ -24,7 +22,7 @@ T = int(input())
 for tc in range(1, T + 1):
     # 도시 크기 N과 집이 지불할 수 있는 비용 M 입력
     N, M = map(int, input().split())
-    # 도시의 개수 세기
+    # 집의 개수를 셀 변수
     cnt_house = 0
     # 도시의 정보 입력
     arr = []
@@ -39,20 +37,20 @@ for tc in range(1, T + 1):
 
     # 서비스 가능한 모든 마름모 영역에 대해 거꾸로 반복한다
     for k in range(N+2, 0, -1):
-        # 운영비용 계산
+        # 운영비용 계산, 이때, 운영비용은 전체 서비스 영역 좌표의 개수이다
         cost = k**2 + (k-1)**2
 
         # 전체 집들로 구한 매출보다 운영비용이 크면 continue -> 더 작은 영역을 고려한다
         if cnt_house * M < cost:
             continue
 
-        # 서비스 영역의 좌표들의 개수보다 이미 구해진 result가 더 크면 더 이상 고려하지 않는다
+        # 서비스 영역의 좌표의 개수보다 이미 구해진 result가 더 크면 더 이상 고려하지 않는다
         if cost < result:
             break
 
         # 서비스 좌표를 저장할 배열
         service = []
-        # 현재 마름모 영역에 대한 서비스 좌표 생성
+        # (0, 0) 을 기준으로 마름모 영역에 대한 서비스 좌표 생성
         start_i, start_j, end_j = 0, 0, 0
         for i in range(start_i-k+1, start_i+k):
             for j in range(start_j, end_j+1):
@@ -66,17 +64,17 @@ for tc in range(1, T + 1):
                 start_j += 1
                 end_j -= 1
 
-        # 각 집에 대해 서비스 영역 내의 집 개수 세기
+        # 도시를 순회하면서 기준을 (r, c)로 두었을 때, 서비스 영역 내의 집 개수 세기
         for r in range(N):
             for c in range(N):
                 cnt = 0
                 for each in service:
-                    nr, nc = each[0]+r, each[1] + c
-                    # 서비스 영역 내에 있고, 집이 있다면 카운트 증가
+                    nr, nc = each[0]+r, each[1] + c     # 원래 기준이었던 (0, 0)과의 차이를 각 좌표에 더한다
+                    # 해당 좌표가 서비스 영역 내에 있고, 집이 있다면 카운트 증가
                     if 0 <= nr < N and 0 <= nc < N:
                         if arr[nr][nc]:
                             cnt += 1
-                # 최대 서비스 가능 집 수를 넘지 않으면서, 현재 집 개수가 최대인 경우 결과 갱신
+                # 현재 집 개수가 최대이고, 비용보다 매출(집의 개수*M) 이 더 큰 경우 결과 갱신
                 if result < cnt and cost <= cnt * M:
                     result = cnt
 
