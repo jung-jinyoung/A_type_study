@@ -24,15 +24,32 @@ T = int(input())
 for tc in range(1, T + 1):
     # 도시 크기 N과 집이 지불할 수 있는 비용 M 입력
     N, M = map(int, input().split())
+    # 도시의 개수 세기
+    cnt_house = 0
     # 도시의 정보 입력
-    arr = [list(map(int, input().split())) for _ in range(N)]
+    arr = []
+    for a in range(N):
+        tmp = list(map(int, input().split()))
+        for b in range(N):
+            if tmp[b]:
+                cnt_house += 1
+        arr.append(tmp)
     # 결과 초기화
     result = 0
 
-    # 서비스 가능한 모든 마름모 영역에 대해 반복
-    for k in range(1, N+2):
+    # 서비스 가능한 모든 마름모 영역에 대해 거꾸로 반복한다
+    for k in range(N+2, 0, -1):
         # 운영비용 계산
         cost = k**2 + (k-1)**2
+
+        # 전체 집들로 구한 매출보다 운영비용이 크면 continue -> 더 작은 영역을 고려한다
+        if cnt_house * M < cost:
+            continue
+
+        # 서비스 영역의 좌표들의 개수보다 이미 구해진 result가 더 크면 더 이상 고려하지 않는다
+        if cost < result:
+            break
+
         # 서비스 좌표를 저장할 배열
         service = []
         # 현재 마름모 영역에 대한 서비스 좌표 생성
