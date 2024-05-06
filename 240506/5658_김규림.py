@@ -8,7 +8,7 @@ for t in range(T):
 
     for i in range(cnt):                     # 회전 수 만큼 반복
         for j in range(0, N, cnt):           # 한번 회전할 때마다 cnt씩 이동
-            pw = ''.join(password[j:j+cnt])  # 리스트 슬라이싱에서 문자열로 변경
+            pw = ''.join(password[j:j+cnt])  # 리스트 슬라이싱해서 문자열로 변경
             arr.append(pw)                   # 생성된 패스워드 arr에 추가
         last = password.pop()                # 마지막 문자 꺼내서
         password.insert(0, last)      # 맨 앞에 삽입
