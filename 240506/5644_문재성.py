@@ -87,5 +87,11 @@ for tc in range(1, T + 1):
 
         # 결과에 사용자 A와 B가 접속한 충전기의 성능을 더함
         result += selected_A[3] + selected_B[3]
+        if time < M:
+            now_A = (now_A[0]+delta[route_A[time]][0], now_A[1]+delta[route_A[time]][1])
+            now_B = (now_B[0]+delta[route_B[time]][0], now_B[1]+delta[route_B[time]][1])
+        time += 1
+ 
+    print(f'#{tc}', result)
 
        
